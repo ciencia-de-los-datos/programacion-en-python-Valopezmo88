@@ -196,24 +196,25 @@ pregunta_09()
 
 
 def pregunta_10():
-    import csv
-    with open("data.csv", "r") as datos:
-      reader = csv.reader(datos, delimiter='\t')
-      lista= []
-      for fila in reader: 
-        lista.append(fila) 
+ import csv
+ with open("data.csv", "r") as datos:
+  reader = csv.reader(datos, delimiter='\t')
+  lista= []
+  for fila in reader: 
+   lista.append(fila)
+ 
+ col1= [lista[i][0] for i in range(0,len(lista))]
+ col5 = [lista[i][4].split(',') for i in range(0,len(lista))]
+ col4 = [lista[i][3].split(',') for i in range(0,len(lista))]
+ union = list(zip(col1,col4,col5))
 
-    col1= [lista[i][0] for i in range(0,len(lista))]
-    col5 = [lista[i][4].split(',') for i in range(0,len(lista))]
-    col4 = [lista[i][3].split(',') for i in range(0,len(lista))]
-    union = list(zip(col1,col4,col5))
-
-    tupla = []
-    for letra,col4,col5 in union:
-      letra = "".join(letra)
+ tupla = []
+ for letra,col4,col5 in union:
+    letra = "".join(letra)
     tupla.append((letra, len(col4),len(col5)))
-    return tupla
+ return tupla
 pregunta_10()
+
 
 
 def pregunta_11():
@@ -240,21 +241,22 @@ pregunta_11()
 
 
 def pregunta_12():
-    import csv
-    from re import findall
-    with open("data.csv", "r") as datos:
-      reader = csv.reader(datos, delimiter='\t')
-      lista= []
-      for fila in reader: 
+ import csv
+ with open("data.csv", "r") as datos:
+    reader = csv.reader(datos, delimiter='\t')
+    lista= []
+    for fila in reader: 
         lista.append(fila) 
-    d = {}
-    for fila in lista:
-      temp = sum(map(int, findall("\d+", fila[-1])))
-      if fila[0] in d.keys():
+
+ from re import findall
+ d = {}
+ for fila in lista:
+    temp = sum(map(int, findall("\d+", fila[-1])))
+    if fila[0] in d.keys():
         d[fila[0]] += temp
     else:
         d[fila[0]] = temp
-    temp = sorted(d.items())
-    d = {key:value for key, value in temp}
-    return d 
+ temp = sorted(d.items())
+ d = {key:value for key, value in temp}
+ return d
 pregunta_12()
